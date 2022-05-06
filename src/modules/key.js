@@ -95,7 +95,6 @@ export default class Key extends HTMLElement {
     }`;
     shadow.append(container);
     shadow.append(style);
-    // this.shadowRoot.firstElementChild.onclick = this.click;
   }
 
   connectedCallback() {
@@ -106,6 +105,10 @@ export default class Key extends HTMLElement {
       Key.#keys.set(this.option.code, this);
     }
     this.setText();
+  }
+
+  disconnectedCallback() {
+    Key.#keys.delete(this.option?.code);
   }
 
   active(status = true) {
