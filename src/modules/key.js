@@ -68,17 +68,16 @@ export default class Key extends HTMLElement {
         display: inline-block;
         box-sizing: border-box;
         border-radius: 3px;
-        max-width: 200px;
-        min-width: 15px;
+        min-width: 50px;
         height: 50px;
-        width: 100%;
+        width: 50px;
         background: var(--v-key-background , rgb(200, 200,200));
         color: var(--v-key-color , rgb(100, 100, 100));
         font-size: 1em;
         -webkit-box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
         -moz-box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
         box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
-        margin: var(--v-key-margin, 5px);
+        margin: var(--v-key-margin, 2px);
     }
     
     :host([active]), :host(:active) {

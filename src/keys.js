@@ -16,7 +16,7 @@ function addkey(code, enParam = code, ruParam = enParam, type = 'key') {
   return addkey;
 }
 
-addkey('Backquote', ['`', '~'], ['ё', '‘'])('"Backslash"', ['\\', '|'], ['\\', '|']);
+addkey('Backquote', ['`', '~'], ['ё', '‘'])('Backslash', ['&#92;', '|'], ['&#92;', '|']);
 addkey('BracketLeft', ['[', '{'], 'х')('BracketRight', [']', '}'], 'Ъ')('Comma', ['.', '>'], 'ю');
 addkey('Digit0', ['0', ')'], ['0', ')'])('Digit1', ['1', '!'], ['1', '!'])('Digit2', ['2', '@'], ['2', '"']);
 addkey('Digit3', ['3', '#'], ['3', '№'])('Digit4', ['4', '$'], ['4', ';'])('Digit5', ['5', '%'], ['5', '%']);
@@ -30,7 +30,7 @@ addkey('KeyN', 'n', 'т')('KeyM', 'm', 'ь')('Period', [',', '<'], 'б')('Quote'
 addkey('AltLeft', 'Alt', 'Alt', 'sys')('AltRight', 'Alt', 'Alt', 'sys')('CapsLock', 'CapsLock', 'CapsLock', 'sys')('ControlLeft', 'Ctrl', 'Ctrl', 'sys');
 addkey('Enter', 'Enter', 'Enter', 'nav')('MetaLeft', '⌘', '⌘', 'sys')('ShiftLeft', 'Shift ⇧', 'Shift ⇧', 'sys')('ControlRight', 'Ctrl', 'Ctrl', 'sys');
 addkey('Space', ' ', ' ')('Tab', 'Tab ⇥', 'Tab ⇥', 'nav')('ShiftRight', 'Shift ⇧', 'Shift ⇧', 'sys');
-addkey('ArrowDown', '↓', '↓', 'nav')('ArrowLeft', '←', '←', 'nav')('IntlBackslash', '\\', '|');
+addkey('ArrowDown', '↓', '↓', 'nav')('ArrowLeft', '←', '←', 'nav')('InitBackslash', ['&#92;', '|'], ['&#92;', '|']);
 addkey('ArrowRight', '→', '→', 'nav')('ArrowUp', '↑', '↑', 'nav')('Delete', '⌦', '⌦', 'nav')('Backspace', '⌫', '⌫', 'nav');
 
 export default keysMap;
