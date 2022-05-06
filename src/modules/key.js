@@ -1,4 +1,51 @@
 export default class Key extends HTMLElement {
+  static #keys = new Map();
+
+  static get keys() {
+    return Key.#keys;
+  }
+
+  static getKey(code) {
+    return Key.#keys.get(code);
+  }
+
+  static refresh() {
+    Key.#keys.forEach((v) => v.setText());
+  }
+
+  static #local = 'en';
+
+  static set local(set) {
+    Key.#local = set;
+    Key.refresh();
+  }
+
+  static #shift = false;
+
+  static set shift(set) {
+    Key.#shift = set;
+    Key.refresh();
+  }
+
+  static get shift() {
+    return Key.#shift;
+  }
+
+  static ctr = false;
+
+  static alt = false;
+
+  static #capsLock = false;
+
+  static set capsLock(set) {
+    Key.#capsLock = set;
+    Key.refresh();
+  }
+
+  static get capsLock() {
+    return Key.#capsLock;
+  }
+
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: 'open' });
@@ -9,8 +56,8 @@ export default class Key extends HTMLElement {
     container.style.alignItems = 'center';
     container.style.justifyContent = 'center';
     const content = document.createElement('span');
-    content.innerHTML = '';
     this.content = content;
+    this.text = '';
     container.append(content);
     const style = document.createElement('style');
     style.textContent = `:host {
@@ -43,13 +90,38 @@ export default class Key extends HTMLElement {
         color: var(--v-key-color-active , rgb(255, 255, 255));
         cursor: pointer;
     }`;
-    shadow.append(style);
     shadow.append(container);
+    shadow.append(style);
+    // this.shadowRoot.firstElementChild.onclick = this.click;
   }
 
   connectedCallback() {
-    console.log('create Key', this.content);
-    this.content.innerHTML = this.getAttribute('kode');
-    console.log('key', this.content);
+    if (!this.option) {
+      this.option = JSON.parse(this.getAttribute('option'));
+    }
+    if (!Key.#keys.has(this.option.code)) {
+      Key.#keys.set(this.option.code, this);
+    }
+    this.setText();
+  }
+
+  active(status = true) {
+    if (status) {
+      if (!this.hasAttribute('active')) this.setAttribute('active', 'true');
+    } else this.removeAttribute('active');
+  }
+
+  isActive() {
+    return this.hasAttribute('active');
+  }
+
+  setText() {
+    const local = this.option[Key.#local];
+    const text = (Key.#shift && local?.sft) || local.key;
+    if ((Key.#shift || Key.#capsLock) && this.option.type === 'key') {
+      text.toUpperCase();
+    }
+    this.value = text;
+    this.content.innerHTML = this.value;
   }
 }
