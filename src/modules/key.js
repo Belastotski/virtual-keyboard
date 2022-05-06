@@ -9,6 +9,10 @@ export default class Key extends HTMLElement {
     return Key.#keys.get(code);
   }
 
+  static hasKey(code) {
+    return Key.#keys.has(code);
+  }
+
   static refresh() {
     Key.#keys.forEach((v) => v.setText());
   }
