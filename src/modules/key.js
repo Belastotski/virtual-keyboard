@@ -1,6 +1,10 @@
 export default class Key extends HTMLElement {
   static #keys = new Map();
 
+  static localSet = ['AltLeft', 'ShiftLeft'];
+
+  static activKeys = new Set();
+
   static get keys() {
     return Key.#keys;
   }
@@ -20,29 +24,47 @@ export default class Key extends HTMLElement {
   static #local = 'en';
 
   static set local(set) {
-    Key.#local = set;
+    Key.#local = set === 'ru' ? 'ru' : 'en';
     Key.refresh();
+  }
+
+  static get local() {
+    return Key.#local;
   }
 
   static #shift = false;
 
-  static set shift(set) {
-    Key.#shift = set;
+  static set Shift(set) {
+    Key.#shift = !!set;
     Key.refresh();
   }
 
-  static get shift() {
+  static get Shift() {
     return Key.#shift;
   }
 
-  static ctr = false;
+  static sysClear() {
+    Key.Ctrl = false;
+    Key.Alt = false;
+    Key.Shift = false;
+    Key.activKeys.forEach((el) => el.active(false));
+    Key.activKeys.clear();
+  }
 
-  static alt = false;
+  static Ctrl = false;
+
+  static Meta = false;
+
+  static Alt = false;
+
+  static isActiveSys() {
+    return Key.Ctrl || Key.Meta || Key.Alt;
+  }
 
   static #capsLock = false;
 
   static set capsLock(set) {
-    Key.#capsLock = set;
+    Key.#capsLock = !!set;
     Key.refresh();
   }
 
@@ -103,6 +125,7 @@ export default class Key extends HTMLElement {
     }
     if (!Key.#keys.has(this.option.code)) {
       Key.#keys.set(this.option.code, this);
+      this.code = this.option.code;
     }
     this.setText();
   }
@@ -113,19 +136,29 @@ export default class Key extends HTMLElement {
 
   active(status = true) {
     if (status) {
-      if (!this.hasAttribute('active')) this.setAttribute('active', 'true');
-    } else this.removeAttribute('active');
+      if (!this.hasAttribute('active')) {
+        this.setAttribute('active', 'true');
+        if (this.option.type !== 'caps') Key.activKeys.add(this);
+      }
+    } else {
+      this.removeAttribute('active');
+      if (this.option.type !== 'caps') Key.activKeys.delete(this);
+    }
   }
 
   isActive() {
-    return this.hasAttribute('active');
+    return Key.activKeys.has(this) || this.hasAttribute('active');
   }
 
   setText() {
     const local = this.option[Key.#local];
-    const text = (Key.#shift && local?.sft) || local.key;
-    if ((Key.#shift || Key.#capsLock) && this.option.type === 'key') {
-      text.toUpperCase();
+    let text = (Key.#shift && local?.sft) || local.key;
+    if ((Key.#shift && !Key.#capsLock) && this.option.type === 'key') {
+      text = text.toUpperCase();
+    } else if ((!Key.#shift && Key.#capsLock) && this.option.type === 'key') {
+      text = text.toUpperCase();
+    } else if ((Key.#shift && Key.#capsLock) && this.option.type === 'key') {
+      text = text.toLowerCase();
     }
     this.value = text;
     this.content.innerHTML = this.value;

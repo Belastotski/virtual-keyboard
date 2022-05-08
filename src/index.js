@@ -2,6 +2,7 @@
 import keyboard from './keyboard.js';
 import Key from './modules/key.js';
 import Text from './modules/text.js';
+import Controller from './controller.js';
 
 customElements.define('v-key', Key);
 customElements.define('v-text', Text);
@@ -9,11 +10,37 @@ customElements.define('v-text', Text);
 const app = document.getElementById('app');
 const container = document.createElement('div');
 const text = document.createElement('v-text');
+const controller = new Controller(Key, text);
 
 app.append(container);
 container.append(text);
 container.append(keyboard);
 
-// app.addEventListener('keydown', (e) => {
-//   console.log(e.code);
-// });
+app.onblur = Key.sysClear;
+
+app.addEventListener('keydown', (e) => {
+  if (!Key.hasKey(e.code)) return;
+  e.preventDefault();
+  if (!e.repeat) {
+    const p = controller.down(e, Key.getKey(e.code));
+    if (p != null) controller.push(p);
+  }
+});
+
+app.addEventListener('click', (e) => {
+  if (!Key.hasKey(e.target.code)) return;
+  e.preventDefault();
+  {
+    const p = controller.down(e, Key.getKey(e.target.code), false);
+    if (p != null) controller.push(p);
+    const f = controller.up(e, Key.getKey(e.target.code), false);
+    console.log(f);
+  }
+});
+
+app.addEventListener('keyup', (e) => {
+  e.preventDefault();
+  if (!Key.hasKey(e.code)) return;
+  controller.up(e, Key.getKey(e.code));
+  // console.log(p, Key.Ctrl, Key.Meta, Key.Alt, Key.Shift, Key.capsLock, Key.local);
+});

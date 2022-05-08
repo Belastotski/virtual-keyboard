@@ -27,9 +27,9 @@ addkey('KeyR', 'r', 'к')('KeyT', 't', 'е')('KeyY', 'y', 'н')('KeyU', 'u', 'г
 addkey('KeyP', 'p', 'з')('KeyS', 's', 'ы')('KeyD', 'd', 'в')('KeyF', 'f', 'а')('KeyG', 'g', 'п')('KeyH', 'h', 'р');
 addkey('KeyJ', 'j', 'о')('KeyK', 'k', 'л')('KeyL', 'l', 'д')('KeyZ', 'z', 'я')('KeyX', 'x', 'ч')('KeyV', 'v', 'м');
 addkey('KeyN', 'n', 'т')('KeyM', 'm', 'ь')('Period', [',', '<'], 'б')('Quote', ['\'', '"'], 'э')('Semicolon', [';', ':'], 'ж')('Slash', ['/', '?'], '.');
-addkey('AltLeft', 'Alt', 'Alt', 'sys')('AltRight', 'Alt', 'Alt', 'sys')('CapsLock', 'CapsLock', 'CapsLock', 'sys')('ControlLeft', 'Ctrl', 'Ctrl', 'sys');
-addkey('Enter', 'Enter', 'Enter', 'nav')('MetaLeft', '⌘', '⌘', 'sys')('ShiftLeft', 'Shift ⇧', 'Shift ⇧', 'sys')('ControlRight', 'Ctrl', 'Ctrl', 'sys');
-addkey('Space', ' ', ' ')('Tab', 'Tab ⇥', 'Tab ⇥', 'nav')('ShiftRight', 'Shift ⇧', 'Shift ⇧', 'sys');
+addkey('AltLeft', 'Alt', 'Alt', 'sys')('AltRight', 'Alt', 'Alt', 'sys')('CapsLock', 'CapsLock', 'CapsLock', 'caps')('ControlLeft', 'Ctrl', 'Ctrl', 'sys');
+addkey('Enter', 'Enter', 'Enter', 'nav')('MetaLeft', 'Meta', 'Meta', 'sys')('ShiftLeft', 'Shift', 'Shift', 'sys')('ControlRight', 'Ctrl', 'Ctrl', 'sys');
+addkey('Space', ' ', ' ')('Tab', 'Tab ⇥', 'Tab ⇥', 'nav')('ShiftRight', 'Shift', 'Shift', 'sys');
 addkey('ArrowDown', '↓', '↓', 'nav')('ArrowLeft', '←', '←', 'nav')('InitBackslash', ['&#92;', '|'], ['&#92;', '|']);
 addkey('ArrowRight', '→', '→', 'nav')('ArrowUp', '↑', '↑', 'nav')('Delete', '⌦', '⌦', 'nav')('Backspace', '⌫', '⌫', 'nav');
 
