@@ -38,8 +38,7 @@ app.addEventListener('click', (e) => {
 });
 
 app.addEventListener('keyup', (e) => {
-  e.preventDefault();
   if (!Key.hasKey(e.code)) return;
+  e.preventDefault();
   controller.up(e, Key.getKey(e.code));
-  // console.log(p, Key.Ctrl, Key.Meta, Key.Alt, Key.Shift, Key.capsLock, Key.local);
 });

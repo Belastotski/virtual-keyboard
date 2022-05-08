@@ -8,6 +8,16 @@ export default class Controller {
 
   down(e, key, system = true) {
     const { type } = key.option;
+    const activeSys = () => {
+      key.active();
+      this.out[key.value] = true;
+      if (this.out.localSet.includes(key.code)
+          && this.out.getKey(this.out.localSet[0]).isActive()
+          && this.out.getKey(this.out.localSet[1]).isActive()
+      ) {
+        this.out.local = this.out.local === 'en' ? 'ru' : 'en';
+      }
+    };
     if (type === 'caps') {
       if (key.isActive()) {
         key.active(false);
@@ -24,28 +34,14 @@ export default class Controller {
         this.out[key.value] = false;
         return null;
       }
-      key.active();
-      this.out[key.value] = true;
-      if (this.out.localSet.includes(key.code)
-      && this.out.getKey(this.out.localSet[0]).isActive()
-      && this.out.getKey(this.out.localSet[1]).isActive()
-      ) {
-        this.out.local = this.out.local === 'en' ? 'ru' : 'en';
-      }
+      activeSys();
       return null;
     }
     if (this.activeKeys.has(key)) {
       return null;
     }
     if (type === 'sys') {
-      key.active();
-      this.out[key.value] = true;
-      if (this.out.localSet.includes(key.code)
-          && this.out.getKey(this.out.localSet[0]).isActive()
-          && this.out.getKey(this.out.localSet[1]).isActive()
-      ) {
-        this.out.local = this.out.local === 'en' ? 'ru' : 'en';
-      }
+      activeSys();
       return null;
     }
     if (type === 'key' && this.out.isActiveSys()) {
@@ -66,7 +62,7 @@ export default class Controller {
     return null;
   }
 
-  push(type, code, value) {
+  push({ type, code, value }) {
     const event = new CustomEvent('v-key', { detail: { type, code, value } });
     this.in.dispatchEvent(event);
   }
