@@ -21,9 +21,12 @@ export default class Key extends HTMLElement {
     Key.#keys.forEach((v) => v.setText());
   }
 
-  static #local = 'en';
+  static storage = window.localStorage;
+
+  static #local = Key.storage.getItem('local') || 'en';
 
   static set local(set) {
+    Key.storage.setItem('local', set);
     Key.#local = set === 'ru' ? 'ru' : 'en';
     Key.refresh();
   }
@@ -74,6 +77,7 @@ export default class Key extends HTMLElement {
 
   constructor() {
     super();
+    this.storage = window.localStorage;
     const shadow = this.attachShadow({ mode: 'open' });
     const container = document.createElement('div');
     container.style.width = '100%';
@@ -151,7 +155,7 @@ export default class Key extends HTMLElement {
   }
 
   setText() {
-    const local = this.option[Key.#local];
+    const local = this.option[Key.local];
     let text = (Key.#shift && local?.sft) || local.key;
     if ((Key.#shift && !Key.#capsLock) && this.option.type === 'key') {
       text = text.toUpperCase();
