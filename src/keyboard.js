@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/extensions
 import keysMap from './keys.js';
 
 const keyboardArray = [

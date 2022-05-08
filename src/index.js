@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import keyboard from './keyboard.js';
 import Key from './modules/key.js';
 import Text from './modules/text.js';

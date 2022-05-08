@@ -4,6 +4,9 @@
         "es6": true,
         "node": true
     },
+    "rules": {
+      "import/extensions" : "off"
+    },
     "extends": ["airbnb/base"],
     "parser": "@babel/eslint-parser",
     "parserOptions": {
