@@ -33,8 +33,7 @@ app.addEventListener('click', (e) => {
   {
     const p = controller.down(e, Key.getKey(e.target.code), false);
     if (p != null) controller.push(p);
-    const f = controller.up(e, Key.getKey(e.target.code), false);
-    console.log(f);
+    controller.up(e, Key.getKey(e.target.code), false);
   }
 });
 
