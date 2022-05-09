@@ -1,4 +1,4 @@
-import keyboard from './keyboard.js';
+import keyboard from '../../src/keyboard.js';
 import Key from './modules/key.js';
 import Text from './modules/text.js';
 import Controller from './controller.js';
